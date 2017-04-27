@@ -76,7 +76,7 @@
 			fixed4 splatMap = tex2D(_SplatMap, IN.uv_SplatMap);
 			fixed4 macroVar = PlanarMap(_MacroVariation, IN.worldPos, _MacroScale);
 			splatMap.rgb = BlendSplatMap(splatMap.rgb, macroVar.rgb);
-			splatMap.g = saturate(splatMap.g + 1 - dot(float3(0, 1, 0), o.Normal));
+			//splatMap.g = saturate(splatMap.g + 1 - dot(float3(0, 1, 0), o.Normal));
 
 			fixed4 ground = PlanarMap(_Ground, IN.worldPos, _GroundScale);
 			fixed4 grass = PlanarMap(_Grass, IN.worldPos, _GrassScale);
