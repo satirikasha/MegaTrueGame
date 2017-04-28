@@ -19,7 +19,7 @@
 		LOD 200
 		
 		CGPROGRAM
-		#pragma surface surf Standard fullforwardshadows
+		#pragma surface surf StandardSpecular fullforwardshadows
 		#pragma target 3.0
 		#include "Blend.cginc"
 
@@ -48,7 +48,7 @@
 			return saturate(max(splatMap * detailMap * 5, splatMap));// saturate(max(splatMap, lerp(splatMap, splatMap * detailMap * 4, 0.25)));
 		}
 
-		void surf (Input IN, inout SurfaceOutputStandard o) {
+		void surf (Input IN, inout SurfaceOutputStandardSpecular o) {
 			fixed4 splatMap = tex2D(_SplatMap, IN.uv_SplatMap);
 			fixed4 macroVar = PlanarMap(_MacroVariation, IN.worldPos, _MacroScale);
 			splatMap.rgb = BlendSplatMap(splatMap.rgb, macroVar.rgb);
@@ -71,7 +71,7 @@
 			result = BlendMap(rock, result, splatMap.g, _RockSharpness);
 
 			//o.Albedo = splatMap.r;
-			o.Albedo = result.rgb * (macroVar.a / 2 + 0.5);
+			o.Albedo = result.rgb * (macroVar.a / 3 + 0.65);
 			o.Occlusion = result.a / 2 + 0.5;
 			o.Smoothness = _Glossiness;
 		}
