@@ -58,6 +58,14 @@ public class PlayerController : SingletonBehaviour<PlayerController> {
             }
         }
 
+        var shoot = Input.GetMouseButton(0);
+        if (shoot) {
+            _Gun.StartFire();
+        }
+        else {
+            _Gun.StopFire();
+        }
+
         var velocity = _Animator.transform.InverseTransformVector(PlanarVelocity);
         _Animator.SetFloat("Forward", velocity.z);
         _Animator.SetFloat("Right", velocity.x);
