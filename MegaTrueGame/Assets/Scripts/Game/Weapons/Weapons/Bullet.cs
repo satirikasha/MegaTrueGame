@@ -8,11 +8,20 @@ public class Bullet : Projectile {
 
     protected Rigidbody Rigidbody { get; set; }
 
+    private bool _ApplyVelocity;
+
     void Awake() {
         Rigidbody = this.GetComponent<Rigidbody>();
+        _ApplyVelocity = true;
     }
 
     void FixedUpdate() {
-        Rigidbody.velocity = this.transform.forward * Speed;
+        if (_ApplyVelocity) {
+            Rigidbody.velocity = this.transform.forward * Speed;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        _ApplyVelocity = false;
     }
 }

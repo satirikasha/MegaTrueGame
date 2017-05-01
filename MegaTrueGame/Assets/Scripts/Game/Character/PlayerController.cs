@@ -10,6 +10,12 @@ public class PlayerController : SingletonBehaviour<PlayerController> {
         }
     }
 
+    public Vector3 Position {
+        get {
+            return this.transform.position;
+        }
+    }
+
     public Vector3 Velocity {
         get {
             return Rigidbody.velocity;
@@ -23,12 +29,15 @@ public class PlayerController : SingletonBehaviour<PlayerController> {
     }
 
     public Rigidbody Rigidbody { get; private set; }
+
+    private MovementController _MovementController;
     private Animator _Animator;
     private Gun _Gun;
 
     protected override void Awake() {
         base.Awake();
         Rigidbody = this.GetComponent<Rigidbody>();
+        _MovementController = this.GetComponent<MovementController>();
         _Animator = this.GetComponentInChildren<Animator>();
         _Gun = this.GetComponentInChildren<Gun>();
     }
@@ -36,26 +45,22 @@ public class PlayerController : SingletonBehaviour<PlayerController> {
     void Update() {
         var aim = Input.GetMouseButton(0);
         var moveVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
         if (moveVector.magnitude > 1)
             moveVector.Normalize();
-        if (aim) {
-            Rigidbody.AddForce(moveVector * 75);
-        }
-        else {
-            Rigidbody.AddForce(moveVector * 125);
-        }
-        Rigidbody.AddForce(-Vector3.ProjectOnPlane(Rigidbody.velocity, Vector3.up) * 5);
+
+        _MovementController.SetMoveDirection(moveVector, moveVector.magnitude * (aim ? 0.5f : 1));
+
         if (aim) {
             var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             var distance = 0f;
             new Plane(Vector3.up, 0).Raycast(mouseRay, out distance);
             var aimVector = Vector3.ProjectOnPlane(mouseRay.GetPoint(distance) - this.transform.position, Vector3.up);
-            Rigidbody.MoveRotation(Quaternion.Lerp(Rigidbody.rotation, Quaternion.LookRotation(aimVector), Time.deltaTime * 10));
+
+            _MovementController.SetLookDirection(aimVector, 1);
         }
         else {
-            if (moveVector != Vector3.zero) {
-                Rigidbody.MoveRotation(Quaternion.Lerp(Rigidbody.rotation, Quaternion.LookRotation(moveVector), Time.deltaTime * 5));
-            }
+            _MovementController.SetLookDirection(moveVector, 0.5f);
         }
 
         var shoot = Input.GetMouseButton(0);
@@ -69,11 +74,5 @@ public class PlayerController : SingletonBehaviour<PlayerController> {
         var velocity = _Animator.transform.InverseTransformVector(PlanarVelocity);
         _Animator.SetFloat("Forward", velocity.z);
         _Animator.SetFloat("Right", velocity.x);
-    }
-
-
-
-    void FixedUpdate() {
-
     }
 }
