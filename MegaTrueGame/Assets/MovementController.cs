@@ -8,8 +8,9 @@ public class MovementController : MonoBehaviour {
 
     public const float WalkableAngleThreshold = 0.75f;
 
-    public float MoveSpeed = 10;
-    public float StopSpeed = 1;
+    public float MovementSpeed = 10;
+    public float Acceleration = 1;
+    public float Deceleration = 1;
     public float RotationSpeed = 10;
 
     public Vector3 Velocity {
@@ -21,6 +22,12 @@ public class MovementController : MonoBehaviour {
     public Vector3 PlanarVelocity {
         get {
             return Vector3.ProjectOnPlane(_Rigidbody.velocity, Vector3.up);
+        }
+    }
+
+    public float TargetSpeed {
+        get {
+            return MovementSpeed * _MoveSpeedMult;
         }
     }
 
@@ -38,7 +45,7 @@ public class MovementController : MonoBehaviour {
         _Collider = this.GetComponent<Collider>();
 	}
 	
-	void Update () {
+	void Update () { //or fixed update
         UpdateGroundInfo();
         UpdateMovement();
         UpdateRotation();
@@ -56,8 +63,20 @@ public class MovementController : MonoBehaviour {
 
     private void UpdateMovement() {
         if (_IsGrounded) {
-            _Rigidbody.AddForce(Vector3.ProjectOnPlane(_MoveDirection, _GroundHit.normal).normalized * _Rigidbody.mass * (_MoveSpeedMult * MoveSpeed + _Collider.sharedMaterial.dynamicFriction * 9.8f));
-            _Rigidbody.AddForce(-PlanarVelocity * (1 - Vector3.Dot(PlanarVelocity.normalized, _MoveDirection)) * StopSpeed * _Rigidbody.mass);
+            if (TargetSpeed > 0) {
+                _Rigidbody.AddForce(
+                    Vector3.ProjectOnPlane(_MoveDirection, _GroundHit.normal).normalized *   
+                    Mathf.Clamp01(1 - PlanarVelocity.sqrMagnitude / (TargetSpeed * TargetSpeed)) *
+                    _MoveSpeedMult * 
+                    Acceleration *
+                    _Rigidbody.mass);
+            }
+
+            _Rigidbody.AddForce(
+                -PlanarVelocity * 
+                Mathf.Clamp01(1 - Vector3.Dot(PlanarVelocity.normalized, _MoveDirection)) *
+                Deceleration * 
+                _Rigidbody.mass);
         }
     }
 
@@ -68,6 +87,6 @@ public class MovementController : MonoBehaviour {
     }
 
     private void UpdateGroundInfo() {
-        _IsGrounded = Physics.Raycast(transform.position + Vector3.up * 0.05f, -Vector3.up, out _GroundHit, 0.1f);
+        _IsGrounded = Physics.Raycast(transform.position + Vector3.up * 0.05f, -Vector3.up, out _GroundHit, 0.25f);
     }
 }

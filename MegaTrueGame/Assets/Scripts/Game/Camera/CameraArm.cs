@@ -13,6 +13,7 @@ public class CameraArm : MonoBehaviour {
 
     void Start() {
         this.transform.position = GetTargetPosition();
+        this.GetComponent<Camera>().depthTextureMode = DepthTextureMode.Depth;
     }
 
     void FixedUpdate() {

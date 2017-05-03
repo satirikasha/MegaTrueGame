@@ -22,6 +22,7 @@ public class Bullet : Projectile {
     }
 
     void OnCollisionEnter(Collision collision) {
+        Destroy(this.gameObject);
         _ApplyVelocity = false;
     }
 }

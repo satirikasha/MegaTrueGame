@@ -44,7 +44,7 @@
 			fixed4 cover = PlanarMap(_Cover, IN.worldPos, _CoverScale);
 			fixed3 normal = UnpackNormal(tex2D(_Normal, IN.uv_MainTex));
 			fixed blend = saturate(dot(half3(0, 1, 0), WorldNormalVector(IN, normal)) - (tex.a * 2 - 1) * 0.5 + (_CoverAmmount * 2 - 1));
-			fixed factor = GetBlendFactor(cover, color, blend, _CoverSharpness);
+			fixed factor = GetBlendFactor(cover.a, color.a, blend, _CoverSharpness);
 
 			o.Albedo = lerp(cover, color, factor);
 			o.Normal = normal;

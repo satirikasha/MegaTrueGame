@@ -75,4 +75,11 @@ public class PlayerController : SingletonBehaviour<PlayerController> {
         _Animator.SetFloat("Forward", velocity.z);
         _Animator.SetFloat("Right", velocity.x);
     }
+
+    void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.GetComponent<AITemp>()) {
+            this.gameObject.SetActive(false);
+            Time.timeScale = 0;
+        }
+    }
 }
