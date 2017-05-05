@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour {
+public class Weapon : MonoBehaviour {
 
     public int ClipSize;
     public float CooldownTime;

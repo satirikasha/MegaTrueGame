@@ -22,7 +22,7 @@ public class AITemp : MonoBehaviour {
             _MovementController.SetMoveDirection(this.transform.forward);
         }
         else {
-            Debug.Log("Shit");
+            //Debug.Log("Shit");
         }
     }
 
