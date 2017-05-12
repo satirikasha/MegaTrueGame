@@ -28,7 +28,7 @@ public class AITemp : MonoBehaviour {
 
     private bool flag;
     void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.GetComponent<Bullet>()) {
+        if (collision.gameObject.GetComponent<Projectile>()) {
             if (flag) {
                 Destroy(this.gameObject);
             }

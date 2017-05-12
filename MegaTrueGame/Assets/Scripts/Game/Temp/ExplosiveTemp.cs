@@ -19,7 +19,7 @@ public class ExplosiveTemp : MonoBehaviour {
 	}
 
     void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.GetComponent<Bullet>()) {
+        if (collision.gameObject.GetComponent<Projectile>()) {
             Physics.OverlapSphere(this.transform.position, Radius, LayerMask.GetMask("NPC", "Player"))
                 .Select(_ => _.GetComponent<Rigidbody>())
                 .Where(_ => _ != null)

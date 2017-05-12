@@ -32,14 +32,14 @@ public class PlayerController : SingletonBehaviour<PlayerController> {
 
     private MovementController _MovementController;
     private Animator _Animator;
-    private Gun _Gun;
+    private Weapon _Weapon;
 
     protected override void Awake() {
         base.Awake();
         Rigidbody = this.GetComponent<Rigidbody>();
         _MovementController = this.GetComponent<MovementController>();
         _Animator = this.GetComponentInChildren<Animator>();
-        _Gun = this.GetComponentInChildren<Gun>();
+        _Weapon = this.GetComponentInChildren<Weapon>();
     }
 
     void Update() {
@@ -65,10 +65,10 @@ public class PlayerController : SingletonBehaviour<PlayerController> {
 
         var shoot = Input.GetMouseButton(0);
         if (shoot) {
-            _Gun.StartFire();
+            _Weapon.StartFire();
         }
         else {
-            _Gun.StopFire();
+            _Weapon.StopFire();
         }
 
         var velocity = _Animator.transform.InverseTransformVector(PlanarVelocity);

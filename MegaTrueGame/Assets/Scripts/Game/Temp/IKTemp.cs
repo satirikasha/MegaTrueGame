@@ -5,11 +5,11 @@ using UnityEngine;
 public class IKTemp : MonoBehaviour {
 
     private Animator _Animator;
-    private Gun _Gun;
+    private IKDataTemp _IKData;
 
     void Start () {
         _Animator = this.GetComponent<Animator>();
-        _Gun = this.transform.parent.GetComponentInChildren<Gun>();
+        _IKData = this.transform.parent.GetComponentInChildren<IKDataTemp>();
     }
 	
 	// Update is called once per frame
@@ -19,8 +19,8 @@ public class IKTemp : MonoBehaviour {
 
     void OnAnimatorIK(int layerIndex) {
         _Animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-        _Animator.SetIKPosition(AvatarIKGoal.LeftHand, _Gun.LeftHandPoint.position);
+        _Animator.SetIKPosition(AvatarIKGoal.LeftHand, _IKData.LeftHandPoint.position);
         _Animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-        _Animator.SetIKPosition(AvatarIKGoal.RightHand, _Gun.RightHandPoint.position);
+        _Animator.SetIKPosition(AvatarIKGoal.RightHand, _IKData.RightHandPoint.position);
     }
 }

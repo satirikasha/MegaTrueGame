@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 48098d2472ed2eb44856782b0940d30d
+timeCreated: 1494412859
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ChasisTemplate: {fileID: 11400000, guid: 8bd30e8a9e6ff7841808804d01995d23, type: 2}
+  - MagazineTemplate: {fileID: 11400000, guid: 870583024ab4ea840b8dc942d0b91d61, type: 2}
+  - AmplifierTemplate: {fileID: 11400000, guid: 1171b24fa4498e648b6d3e7fe90f6c56,
+      type: 2}
+  - BarrelTemplate: {fileID: 11400000, guid: 8d691ade16cc99c47848d5a2def06f1e, type: 2}
+  - StockTemplate: {fileID: 11400000, guid: f936d762c82e8034f83ac4c4f6e9652e, type: 2}
+  - ScopeTemplate: {fileID: 11400000, guid: 4ae3c78076bc2e64e8f472087e3d3310, type: 2}
+  - FirePivot: {instanceID: 0}
+  - Projectile: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
