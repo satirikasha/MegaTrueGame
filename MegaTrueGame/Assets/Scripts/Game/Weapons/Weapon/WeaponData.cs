@@ -13,7 +13,7 @@ public class WeaponData {
     public float PushForce;
     public float Precision;
     public float MoveSpeed;
-    public float BulletSpeed;
+    public float ProjectileSpeed;
     public float RechargeTime;
     public float CooldownTime;
     public float AimOffset;

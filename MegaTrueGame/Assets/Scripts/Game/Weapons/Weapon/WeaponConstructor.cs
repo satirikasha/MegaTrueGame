@@ -45,6 +45,7 @@ public partial class Weapon {
         WeaponData.ClipSize = Magazine.Data.ClipSize;
         WeaponData.RechargeTime = StandardRechargeTime / Chasis.Data.RechargeSpeed;
         WeaponData.CooldownTime = StandardCooldownTime / Chasis.Data.FireRate;
+        WeaponData.ProjectileSpeed = Chasis.Data.ProjectileSpeed;
     }
 
     private void BuildView() {
@@ -83,6 +84,7 @@ public partial class Weapon {
 
     public Projectile CreateProjectile() {
         var projectile = Instantiate(Projectile);
+        projectile.Initialize(WeaponData);
         return projectile;
     }
 

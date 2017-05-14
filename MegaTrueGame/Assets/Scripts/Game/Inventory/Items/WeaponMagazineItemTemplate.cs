@@ -3,11 +3,12 @@ using System.Collections;
 using System;
 using System.Linq;
 
+[Flags]
 public enum BulletType {
-    Normal,
-    Piercing,
-    Cluster,
-    Aiming
+    Piercing = 1 << 0,
+    Bouncing = 1 << 1,
+    Cluster = 1 << 2,
+    Aiming = 1 << 3
 }
 
 [CreateAssetMenu(fileName = "WeaponMagazine.asset", menuName = "Inventory System/Weapons/Magazine", order = 0)]

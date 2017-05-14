@@ -17,6 +17,7 @@ public class WeaponChasisItemTemplate : WeaponPartItemTemplate {
     public float Damage;
     public float FireRate;
     public float RechargeSpeed;
+    public float ProjectileSpeed;
     public float PushForce;
     public float Precision;
 }
